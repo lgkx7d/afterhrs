@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { CinematicIntro } from '@/components/sections/CinematicIntro';
-import { CustomCursor } from '@/components/motion/CustomCursor';
+import GlowCursor from '@/components/motion/GlowCursor';
 import { Navigation } from '@/components/layout/Navigation';
 import { HeroExperience } from '@/components/sections/HeroExperience';
 import { VelocityMarquee } from '@/components/motion/VelocityMarquee';
@@ -24,8 +24,24 @@ export default function AfterhrsHomePage() {
         SKIP TO EVENT TRANSMISSION
       </a>
 
-      {/* Contextual Interactive Cursor */}
-      <CustomCursor />
+      {/* React Bits WebGL2 Fluid Comet GlowCursor */}
+      <div className="fixed inset-0 w-screen h-screen pointer-events-none z-[85]">
+        <GlowCursor
+          color="#f10505"
+          secondaryColor="#f10505"
+          intensity={1.3}
+          trailWidth={3}
+          linger={1.4}
+          glow={0.8}
+          hotspot={0.8}
+          followSpeed={0.6}
+          grain={0}
+          quality="high"
+          clickBurst={true}
+          theme="dark"
+          enabled={true}
+        />
+      </div>
 
       {/* 04. Four-Phase Cinematic Intro Sequence (Non-blocking overlay with Skip & Reduced-Motion support) */}
       <CinematicIntro />

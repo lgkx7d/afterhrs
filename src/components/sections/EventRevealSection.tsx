@@ -263,56 +263,6 @@ export function EventRevealSection() {
           )}
         </div>
 
-        {/* Official Early Bird Passes Matrix */}
-        <div className="mt-12 border border-scarlet-500/60 bg-void-900/95 p-6 sm:p-8 shadow-crimson">
-          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[var(--color-border-hairline)]">
-            <h3 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-[-0.02em] text-bone-100">
-              EARLY BIRD <span className="text-scarlet-500">PASSES</span>
-            </h3>
-            <span className="px-3 py-1 bg-scarlet-500 text-void-950 font-extended text-[10px] font-extrabold tracking-[0.2em] uppercase">
-              FIRST WAVE PRICING
-            </span>
-          </div>
-
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-            {EVENT_CONFIG.passTiers.map((tier) => (
-              <div
-                key={tier.id}
-                onMouseEnter={() => soundEngine.playHoverTick(200)}
-                className="border border-scarlet-500/50 bg-void-950 p-6 sm:p-8 flex flex-col justify-between gap-6 hover:border-scarlet-400 transition-colors"
-              >
-                <div>
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="font-extended text-[10px] font-bold tracking-[0.22em] text-scarlet-400 uppercase">
-                      {tier.phase}
-                    </span>
-                    <span className="w-2 h-2 bg-scarlet-500" />
-                  </div>
-                  <h4 className="mt-3 font-display text-3xl sm:text-4xl font-black uppercase tracking-[-0.02em] text-bone-100">
-                    {tier.name}
-                  </h4>
-                  <p className="mt-2 font-sans text-xs sm:text-sm text-ash-300 leading-relaxed">
-                    {tier.capacityNote}
-                  </p>
-                </div>
-
-                <div className="pt-5 border-t border-[var(--color-border-hairline)] flex items-end justify-between gap-4">
-                  <span className="tabular-nums-data text-3xl sm:text-4xl font-extrabold text-bone-100 tracking-tight">
-                    {tier.price}
-                  </span>
-                  <a
-                    href="#register"
-                    className="px-4 py-2.5 bg-scarlet-500 text-void-950 font-extended text-[10px] font-extrabold tracking-[0.2em] uppercase inline-flex items-center gap-2 hover:bg-bone-100 transition-colors"
-                  >
-                    <span>SELECT</span>
-                    <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
         {/* Experimental Editorial Event Specification Ledger */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-t border-l border-[var(--color-border-hairline)]">
           {specRows.map((item) => (

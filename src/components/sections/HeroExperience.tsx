@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowDownRight, ArrowUpRight, Broadcast, Ticket } from '@phosphor-icons/react';
+import { ArrowDownRight, ArrowUpRight, Broadcast } from '@phosphor-icons/react';
 import { AfterhrsWordmark } from '@/components/ui/AfterhrsWordmark';
 import { MagneticElement } from '@/components/motion/MagneticElement';
 import { EVENT_CONFIG } from '@/config/event';
@@ -129,7 +129,7 @@ export function HeroExperience() {
 
             <MagneticElement strength={0.22} className="w-full sm:w-auto">
               <a
-                href="#event"
+                href="#register"
                 onMouseEnter={() => soundEngine.playHoverTick(190)}
                 className="w-full sm:w-auto px-6 py-4 bg-void-900/95 border border-scarlet-500/60 text-bone-100 font-extended text-xs font-bold tracking-[0.2em] uppercase inline-flex items-center justify-between sm:justify-center gap-3 hover:border-bone-100 hover:bg-crimson-900/60 transition-colors duration-200"
               >
@@ -138,33 +138,6 @@ export function HeroExperience() {
               </a>
             </MagneticElement>
           </div>
-        </div>
-
-        {/* Early Bird Passes Strip */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-4xl">
-          {EVENT_CONFIG.passTiers.map((tier) => (
-            <a
-              key={tier.id}
-              href="#register"
-              onMouseEnter={() => soundEngine.playHoverTick(210)}
-              className="group border border-scarlet-500/50 bg-void-950/85 hover:bg-crimson-950/90 hover:border-scarlet-400 px-4 py-3 flex items-center justify-between transition-colors"
-            >
-              <div className="flex flex-col">
-                <span className="font-extended text-[9px] font-bold tracking-[0.22em] text-scarlet-400 uppercase">
-                  {tier.phase}
-                </span>
-                <span className="font-display text-xl sm:text-2xl font-black uppercase tracking-tight text-bone-100">
-                  {tier.name}
-                </span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="tabular-nums-data text-lg sm:text-xl font-extrabold text-bone-100 group-hover:text-scarlet-400 transition-colors">
-                  {tier.price}
-                </span>
-                <Ticket size={16} weight="bold" className="text-scarlet-500" aria-hidden="true" />
-              </div>
-            </a>
-          ))}
         </div>
       </div>
 
