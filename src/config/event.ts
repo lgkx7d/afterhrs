@@ -1,3 +1,12 @@
+export interface PassTier {
+  id: string;
+  phase: string;
+  name: string;
+  price: string;
+  rawPrice: number;
+  capacityNote: string;
+}
+
 export interface EventConfiguration {
   /** Set to true once official event date, venue, and ticketing are locked */
   isConfirmed: boolean;
@@ -22,6 +31,8 @@ export interface EventConfiguration {
   ageRestriction: string | null;
   /** Tier / access structure */
   ticketInfo: string | null;
+  /** Official pass tiers and pricing */
+  passTiers: PassTier[];
   /** Official external booking or social destination */
   bookingDestination: string;
   /** Official Instagram profile */
@@ -49,11 +60,37 @@ export const EVENT_CONFIG: EventConfiguration = {
   coordinates: '17.3850° N, 78.4867° E',
   category: 'IMMERSIVE AUDIOVISUAL PRODUCTION',
   ageRestriction: '21+ // GOVERNMENT ID REQUIRED AT ENTRY',
-  ticketInfo: null,
+  ticketInfo: 'EARLY BIRD // GEN: ₹1,299 · VIP: ₹1,699 · 6 PAX (GEN): ₹7,200',
+  passTiers: [
+    {
+      id: 'EARLY_BIRD_GEN',
+      phase: 'EARLY BIRD',
+      name: 'GEN',
+      price: '₹1,299',
+      rawPrice: 1299,
+      capacityNote: 'SINGLE GENERAL ACCESS // MAIN SOUNDSTAGE FLOOR',
+    },
+    {
+      id: 'EARLY_BIRD_VIP',
+      phase: 'EARLY BIRD',
+      name: 'VIP',
+      price: '₹1,699',
+      rawPrice: 1699,
+      capacityNote: 'PRIORITY ENTRY // ELEVATED VIP DECK & DEDICATED BAR',
+    },
+    {
+      id: 'EARLY_BIRD_6PAX_GEN',
+      phase: 'EARLY BIRD',
+      name: '6 PAX (GEN)',
+      price: '₹7,200',
+      rawPrice: 7200,
+      capacityNote: 'GROUP OF 6 GENERAL ACCESS // COLLECTIVE ENTRY PASS',
+    },
+  ],
   bookingDestination: 'https://www.instagram.com/afterhrs_prod/',
   instagramUrl: 'https://www.instagram.com/afterhrs_prod/',
   instagramHandle: '@afterhrs_prod',
-  statusText: 'AN EXPERIENCE IS COMING.',
+  statusText: 'EARLY BIRD PASSES RELEASED.',
 };
 
 /**

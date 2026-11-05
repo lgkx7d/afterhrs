@@ -312,8 +312,6 @@ function VolumetricSmokeBackdrop() {
 function FerrofluidObsidianOrb() {
   const groupRef = useRef<THREE.Group | null>(null);
   const orbRef = useRef<THREE.Mesh | null>(null);
-  const innerRingRef = useRef<THREE.Mesh | null>(null);
-  const outerRingRef = useRef<THREE.Mesh | null>(null);
   const matRef = useRef<THREE.ShaderMaterial | null>(null);
   const pointer = useRef(new THREE.Vector2(0, 0));
   const lastPointer = useRef(new THREE.Vector2(0, 0));
@@ -356,7 +354,7 @@ function FerrofluidObsidianOrb() {
     if (groupRef.current) {
       groupRef.current.position.x = THREE.MathUtils.lerp(
         groupRef.current.position.x,
-        0.72 + pointer.current.x * 0.22,
+        0.82 + pointer.current.x * 0.22,
         0.05
       );
       groupRef.current.position.y = THREE.MathUtils.lerp(
@@ -374,24 +372,12 @@ function FerrofluidObsidianOrb() {
         0.05
       );
     }
-
-    if (innerRingRef.current) {
-      innerRingRef.current.rotation.z = t * 0.22;
-      innerRingRef.current.rotation.x = 1.18 + Math.sin(t * 0.35) * 0.12 + pointer.current.y * 0.18;
-      innerRingRef.current.rotation.y = -0.38 + pointer.current.x * 0.22;
-    }
-
-    if (outerRingRef.current) {
-      outerRingRef.current.rotation.z = -t * 0.15;
-      outerRingRef.current.rotation.x = 1.42 + Math.cos(t * 0.28) * 0.1 - pointer.current.y * 0.14;
-      outerRingRef.current.rotation.y = 0.46 - pointer.current.x * 0.16;
-    }
   });
 
   return (
-    <group ref={groupRef} position={[0.72, 0.04, 0]}>
-      {/* Ultra-Smooth Glossy Liquid Obsidian-Mercury Singularity Core */}
-      <mesh ref={orbRef} scale={1.12}>
+    <group ref={groupRef} position={[0.82, 0.04, 0]}>
+      {/* Ultra-Smooth Glossy Liquid Obsidian Singularity Core (No orbital rings) */}
+      <mesh ref={orbRef} scale={1.15}>
         <sphereGeometry args={[1, 160, 160]} />
         <shaderMaterial
           ref={matRef}
@@ -399,18 +385,6 @@ function FerrofluidObsidianOrb() {
           fragmentShader={FERROFLUID_FRAGMENT_SHADER}
           uniforms={uniforms}
         />
-      </mesh>
-
-      {/* Precision Razor-Thin Crimson Laser Orbital Ring I */}
-      <mesh ref={innerRingRef} scale={1.58}>
-        <torusGeometry args={[1, 0.0045, 32, 220]} />
-        <meshBasicMaterial color="#FF1E00" transparent opacity={0.62} />
-      </mesh>
-
-      {/* Precision Razor-Thin Platinum-Ember Orbital Ring II */}
-      <mesh ref={outerRingRef} scale={1.92}>
-        <torusGeometry args={[1, 0.0028, 24, 220]} />
-        <meshBasicMaterial color="#FF6A3D" transparent opacity={0.28} />
       </mesh>
     </group>
   );

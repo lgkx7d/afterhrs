@@ -4,7 +4,7 @@ import React, { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowDownRight, ArrowUpRight, Broadcast } from '@phosphor-icons/react';
+import { ArrowDownRight, ArrowUpRight, Broadcast, Ticket } from '@phosphor-icons/react';
 import { AfterhrsWordmark } from '@/components/ui/AfterhrsWordmark';
 import { MagneticElement } from '@/components/motion/MagneticElement';
 import { EVENT_CONFIG } from '@/config/event';
@@ -24,7 +24,6 @@ export function HeroExperience() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const stageContentRef = useRef<HTMLDivElement | null>(null);
   const wordmarkLayerRef = useRef<HTMLDivElement | null>(null);
-  const plateLayerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -33,7 +32,7 @@ export function HeroExperience() {
     const mm = gsap.matchMedia();
 
     mm.add('(prefers-reduced-motion: no-preference)', () => {
-      // Multi-layer pointer depth parallax
+      // Pointer depth parallax on wordmark
       const xWordmark = gsap.quickTo(wordmarkLayerRef.current, 'x', {
         duration: 0.6,
         ease: 'power3.out',
@@ -42,22 +41,12 @@ export function HeroExperience() {
         duration: 0.6,
         ease: 'power3.out',
       });
-      const xPlate = gsap.quickTo(plateLayerRef.current, 'x', {
-        duration: 0.75,
-        ease: 'power3.out',
-      });
-      const yPlate = gsap.quickTo(plateLayerRef.current, 'y', {
-        duration: 0.75,
-        ease: 'power3.out',
-      });
 
       const onPointerMove = (e: PointerEvent) => {
         const nx = (e.clientX / Math.max(window.innerWidth, 1) - 0.5) * 2;
         const ny = (e.clientY / Math.max(window.innerHeight, 1) - 0.5) * 2;
         xWordmark(nx * -18);
         yWordmark(ny * -12);
-        xPlate(nx * 24);
-        yPlate(ny * 16);
       };
 
       window.addEventListener('pointermove', onPointerMove, { passive: true });
@@ -88,71 +77,29 @@ export function HeroExperience() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative min-h-[100dvh] w-full bg-void-950 pt-24 pb-12 px-4 sm:px-8 lg:px-12 flex flex-col justify-between overflow-hidden border-b border-[var(--color-border-hairline)]"
+      className="relative min-h-[100dvh] w-full bg-void-950 pt-24 pb-10 px-4 sm:px-8 lg:px-12 flex flex-col justify-between overflow-hidden border-b border-[var(--color-border-hairline)]"
     >
-      {/* 3D WebGL Volumetric Crimson Soundstage + Relativistic Monolith */}
+      {/* 3D WebGL Volumetric Crimson Soundstage + Glossy Ferrofluid Obsidian Singularity */}
       <CrimsonSoundstageCanvas />
-
-      {/* Subtle Architectural Grid Hairlines */}
-      <div
-        className="pointer-events-none absolute inset-0 max-w-[1600px] mx-auto border-x border-[var(--color-border-hairline)]"
-        aria-hidden="true"
-      />
 
       <div
         ref={stageContentRef}
-        className="relative z-10 max-w-[1600px] w-full mx-auto my-auto flex flex-col gap-5 sm:gap-7 lg:gap-8 pt-1 sm:pt-2"
+        className="relative z-10 max-w-[1600px] w-full mx-auto my-auto flex flex-col gap-6 sm:gap-8 lg:gap-9 pt-1 sm:pt-2"
       >
-        {/* Massive Interactive Warped AFTERHRS Wordmark + Brand Plate Composition */}
+        {/* Massive Interactive Warped AFTERHRS Wordmark (Right flank left open for unobstructed 3D Ferrofluid Orb) */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
-          <div ref={wordmarkLayerRef} className="lg:col-span-8 will-change-transform">
+          <div ref={wordmarkLayerRef} className="lg:col-span-7 will-change-transform">
             <AfterhrsWordmark
               variant="void-monolith"
               showSubtitle={true}
               interactive={true}
-              className="max-w-[520px] xl:max-w-[560px]"
+              className="max-w-[500px] xl:max-w-[540px]"
             />
-          </div>
-
-          {/* Authentic Official Brand Emblem Plate (LCP candidate with fetchpriority="high") */}
-          <div
-            ref={plateLayerRef}
-            className="hidden sm:flex lg:col-span-4 flex-col items-end will-change-transform"
-          >
-            <div
-              data-cursor="EXPLORE"
-              className="w-full max-w-[380px] border border-scarlet-500/60 bg-void-900/90 p-3 shadow-crimson"
-            >
-              <div className="relative overflow-hidden border border-scarlet-500/30">
-                <img
-                  src="/brand/afterhrs-wordmark-plate.jpg"
-                  alt="AFTERHRS PRODUCTIONS official crimson and black emblem"
-                  width={980}
-                  height={640}
-                  fetchPriority="high"
-                  className="w-full h-44 sm:h-48 object-cover safelight-plate"
-                />
-                <div className="absolute bottom-2 left-2 right-2 bg-void-950/90 border border-scarlet-500/40 px-3 py-1.5 flex items-center justify-between">
-                  <span className="font-extended text-[10px] font-bold tracking-[0.2em] text-bone-100 uppercase">
-                    {EVENT_CONFIG.statusText}
-                  </span>
-                  <span className="w-2 h-2 bg-scarlet-500 pulse-signal" />
-                </div>
-              </div>
-              <div className="mt-3 flex items-center justify-between text-xs text-ash-300">
-                <span className="font-extended text-[10px] tracking-[0.18em] uppercase">
-                  {EVENT_CONFIG.location}
-                </span>
-                <span className="tabular-nums-data text-[11px] text-ash-300">
-                  {EVENT_CONFIG.coordinates}
-                </span>
-              </div>
-            </div>
           </div>
         </div>
 
-        {/* Dominant Hero Statement & Conversion Architecture (No kicker above h1 per craft floor) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end border-t border-[var(--color-border-hairline)] pt-6 sm:pt-8 lg:pt-10">
+        {/* Dominant Hero Statement & Conversion Architecture (No kicker above h1 per craft floor; no horizontal line cutting across 3D orb) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end pt-2 sm:pt-4">
           <div className="lg:col-span-7">
             <h1
               className="font-display font-black uppercase text-bone-100 tracking-[-0.03em] leading-[0.88]"
@@ -175,7 +122,7 @@ export function HeroExperience() {
                 onMouseEnter={() => soundEngine.playHoverTick(250)}
                 className="w-full sm:w-auto px-7 py-4 bg-scarlet-500 text-void-950 font-extended text-xs font-extrabold tracking-[0.22em] uppercase inline-flex items-center justify-between sm:justify-center gap-3 hover:bg-bone-100 transition-colors duration-200 shadow-crimson"
               >
-                <span>REGISTER ACCESS</span>
+                <span>BOOK PASSES</span>
                 <ArrowUpRight size={18} weight="bold" aria-hidden="true" />
               </a>
             </MagneticElement>
@@ -186,45 +133,53 @@ export function HeroExperience() {
                 onMouseEnter={() => soundEngine.playHoverTick(190)}
                 className="w-full sm:w-auto px-6 py-4 bg-void-900/95 border border-scarlet-500/60 text-bone-100 font-extended text-xs font-bold tracking-[0.2em] uppercase inline-flex items-center justify-between sm:justify-center gap-3 hover:border-bone-100 hover:bg-crimson-900/60 transition-colors duration-200"
               >
-                <span>THE TRANSMISSION</span>
+                <span>PASS TIERS</span>
                 <ArrowDownRight size={18} weight="bold" aria-hidden="true" />
               </a>
             </MagneticElement>
           </div>
         </div>
 
-        {/* Mobile Brand Emblem Plate (Positioned below primary CTAs on <640px so headline + CTAs stay in first viewport) */}
-        <div className="sm:hidden border border-scarlet-500/60 bg-void-900/90 p-2.5 shadow-crimson">
-          <div className="relative overflow-hidden border border-scarlet-500/30">
-            <img
-              src="/brand/afterhrs-wordmark-plate.jpg"
-              alt="AFTERHRS PRODUCTIONS official crimson and black emblem"
-              width={980}
-              height={640}
-              className="w-full h-32 object-cover safelight-plate"
-            />
-            <div className="absolute bottom-2 left-2 right-2 bg-void-950/90 border border-scarlet-500/40 px-2.5 py-1 flex items-center justify-between">
-              <span className="font-extended text-[10px] font-bold tracking-[0.18em] text-bone-100 uppercase">
-                {EVENT_CONFIG.statusText}
-              </span>
-              <span className="w-2 h-2 bg-scarlet-500 pulse-signal" />
-            </div>
-          </div>
+        {/* Early Bird Passes Strip */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 max-w-4xl">
+          {EVENT_CONFIG.passTiers.map((tier) => (
+            <a
+              key={tier.id}
+              href="#register"
+              onMouseEnter={() => soundEngine.playHoverTick(210)}
+              className="group border border-scarlet-500/50 bg-void-950/85 hover:bg-crimson-950/90 hover:border-scarlet-400 px-4 py-3 flex items-center justify-between transition-colors"
+            >
+              <div className="flex flex-col">
+                <span className="font-extended text-[9px] font-bold tracking-[0.22em] text-scarlet-400 uppercase">
+                  {tier.phase}
+                </span>
+                <span className="font-display text-xl sm:text-2xl font-black uppercase tracking-tight text-bone-100">
+                  {tier.name}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="tabular-nums-data text-lg sm:text-xl font-extrabold text-bone-100 group-hover:text-scarlet-400 transition-colors">
+                  {tier.price}
+                </span>
+                <Ticket size={16} weight="bold" className="text-scarlet-500" aria-hidden="true" />
+              </div>
+            </a>
+          ))}
         </div>
       </div>
 
       {/* Bottom Stage Status Strip */}
-      <div className="relative z-10 max-w-[1600px] w-full mx-auto mt-10 pt-4 border-t border-[var(--color-border-hairline)] flex flex-wrap items-center justify-between gap-4">
+      <div className="relative z-10 max-w-[1600px] w-full mx-auto mt-8 pt-4 border-t border-[var(--color-border-hairline)] flex flex-wrap items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <Broadcast size={18} weight="bold" className="text-scarlet-400" aria-hidden="true" />
           <span className="font-extended text-[10px] sm:text-xs font-bold tracking-[0.22em] text-bone-100 uppercase">
-            STATUS: {EVENT_CONFIG.statusText}
+            EARLY BIRD: GEN ₹1,299 · VIP ₹1,699 · 6 PAX (GEN) ₹7,200
           </span>
         </div>
 
         <div className="flex items-center gap-6">
           <span className="font-sans text-xs text-ash-300 hidden md:inline">
-            MOVE CURSOR TO DISTORT FIELD // SCROLL TO ENTER SOUNDSTAGE
+            HYDERABAD, IN // SCROLL TO EXPLORE PASSES
           </span>
           <a
             href={EVENT_CONFIG.instagramUrl}

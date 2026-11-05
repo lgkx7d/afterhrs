@@ -16,14 +16,14 @@ interface RegistrationPayload {
   fullName: string;
   email: string;
   instagram: string;
-  intent: 'NOTIFY_FIRST_WAVE' | 'REGISTER_INTEREST' | 'VIP_TABLE_INQUIRY';
+  intent: 'EARLY_BIRD_GEN_1299' | 'EARLY_BIRD_VIP_1699' | 'EARLY_BIRD_6PAX_GEN_7200';
   referenceCode: string;
   timestamp: string;
 }
 
 export function RegistrationSection() {
   const formRef = useRef<HTMLFormElement | null>(null);
-  const [intent, setIntent] = useState<RegistrationPayload['intent']>('NOTIFY_FIRST_WAVE');
+  const [intent, setIntent] = useState<RegistrationPayload['intent']>('EARLY_BIRD_GEN_1299');
   const [submittedRecord, setSubmittedRecord] = useState<RegistrationPayload | null>(null);
   const [formErrorSummary, setFormErrorSummary] = useState<string | null>(null);
 
@@ -228,16 +228,16 @@ export function RegistrationSection() {
                 </div>
               )}
 
-              {/* Intent Selector */}
+              {/* Pass Tier Selector */}
               <div>
                 <span className="block font-extended text-xs font-bold tracking-[0.2em] text-bone-100 uppercase mb-3">
-                  SELECT DISPATCH PREFERENCE
+                  SELECT EARLY BIRD PASS TIER
                 </span>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" role="radiogroup" aria-label="Dispatch preference">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" role="radiogroup" aria-label="Early Bird pass tier">
                   {[
-                    { id: 'NOTIFY_FIRST_WAVE', label: 'GET NOTIFIED' },
-                    { id: 'REGISTER_INTEREST', label: 'REGISTER INTEREST' },
-                    { id: 'VIP_TABLE_INQUIRY', label: 'BACKSTAGE / TABLE' },
+                    { id: 'EARLY_BIRD_GEN_1299', label: 'GEN // ₹1,299' },
+                    { id: 'EARLY_BIRD_VIP_1699', label: 'VIP // ₹1,699' },
+                    { id: 'EARLY_BIRD_6PAX_GEN_7200', label: '6 PAX (GEN) // ₹7,200' },
                   ].map((opt) => {
                     const active = intent === opt.id;
                     return (
