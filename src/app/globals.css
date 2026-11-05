@@ -1,0 +1,294 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   01. SELF-HOSTED VARIABLE TYPOGRAPHY (@font-face)
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Big Shoulders Display';
+  src: url('/fonts/big-shoulders-display-latin.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Unbounded';
+  src: url('/fonts/unbounded-latin.woff2') format('woff2-variations');
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bricolage Grotesque';
+  src: url('/fonts/bricolage-grotesque-latin.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2-variations');
+  font-weight: 100 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   02. THREE-LAYER DESIGN TOKEN ARCHITECTURE
+   ========================================================================== */
+
+:root {
+  /* Layer 1: Primitive Tokens */
+  --primitive-void-950: #050505;
+  --primitive-void-900: #0A0607;
+  --primitive-void-850: #13090B;
+  --primitive-crimson-950: #280003;
+  --primitive-crimson-900: #4A0006;
+  --primitive-crimson-700: #8A000A;
+  --primitive-crimson-600: #C4000D;
+  --primitive-scarlet-500: #E60000;
+  --primitive-scarlet-400: #FF1F1F;
+  --primitive-ember-500: #D94E0F;
+  --primitive-ember-400: #FF6B2B;
+  --primitive-bone-100: #F5EFE6;
+  --primitive-bone-200: #FFF5B8;
+  --primitive-ash-300: #D4BDBC;
+  --primitive-ash-500: #A88B89;
+  --primitive-signal-valid: #22C55E;
+
+  /* Layer 2: Semantic Tokens */
+  --color-bg-primary: var(--primitive-void-950);
+  --color-bg-elevated: var(--primitive-void-900);
+  --color-bg-surface: var(--primitive-void-850);
+  --color-bg-crimson-drenched: var(--primitive-scarlet-500);
+  --color-text-primary: var(--primitive-bone-100);
+  --color-text-secondary: var(--primitive-ash-300);
+  --color-text-muted: var(--primitive-ash-500);
+  --color-text-on-crimson: var(--primitive-void-950);
+  --color-brand-red: var(--primitive-scarlet-500);
+  --color-brand-crimson: var(--primitive-crimson-700);
+  --color-brand-ember: var(--primitive-ember-500);
+  --color-brand-glow: var(--primitive-bone-200);
+  --color-border-hairline: rgba(230, 0, 0, 0.26);
+  --color-border-strong: rgba(230, 0, 0, 0.68);
+
+  /* Layer 3: Component Tokens */
+  --nav-bg: rgba(5, 5, 5, 0.86);
+  --nav-border: var(--color-border-hairline);
+  --btn-primary-bg: var(--color-brand-red);
+  --btn-primary-fg: var(--primitive-void-950);
+  --btn-primary-hover-bg: var(--primitive-bone-100);
+  --input-bg: rgba(19, 9, 11, 0.92);
+  --input-border: rgba(230, 0, 0, 0.38);
+  --input-border-focus: var(--primitive-scarlet-400);
+  --input-border-invalid: var(--primitive-ember-400);
+
+  /* Typography Variables */
+  --font-display: 'Big Shoulders Display', sans-serif;
+  --font-extended: 'Unbounded', sans-serif;
+  --font-sans: 'Bricolage Grotesque', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Dynamic Pointer Tracking Coordinates */
+  --cursor-x: 50vw;
+  --cursor-y: 50vh;
+
+  color-scheme: dark;
+}
+
+/* ==========================================================================
+   03. THEMED BROWSER SURFACES & GLOBAL RESET
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  border-radius: 0px;
+}
+
+html {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  caret-color: var(--primitive-scarlet-400);
+  scrollbar-width: thin;
+  scrollbar-color: var(--primitive-crimson-700) var(--primitive-void-950);
+  scroll-behavior: auto;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  overflow-x: hidden;
+  min-height: 100dvh;
+  selection-background-color: var(--primitive-scarlet-500);
+}
+
+::selection {
+  background-color: var(--primitive-scarlet-500);
+  color: var(--primitive-void-950);
+}
+
+::-moz-selection {
+  background-color: var(--primitive-scarlet-500);
+  color: var(--primitive-void-950);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primitive-void-950);
+  border-left: 1px solid rgba(230, 0, 0, 0.14);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primitive-crimson-700);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primitive-scarlet-500);
+}
+
+/* Keyboard Focus Visibility */
+:focus-visible {
+  outline: 2px solid var(--primitive-scarlet-400);
+  outline-offset: 3px;
+}
+
+/* Link & Underline Craft */
+a {
+  text-underline-offset: 0.24em;
+  text-decoration-thickness: 1px;
+}
+
+/* Tabular Numerals for Countdown, Coordinates & Metrics */
+.tabular-nums-data {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Balanced Display Headings */
+h1,
+h2,
+h3,
+.heading-balance {
+  text-wrap: balance;
+}
+
+/* ==========================================================================
+   04. MODERN FORM VALIDATION (:user-invalid / :user-valid + Fallbacks)
+   ========================================================================== */
+
+.afterhrs-input {
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  color: var(--color-text-primary);
+  caret-color: var(--primitive-scarlet-400);
+  transition: border-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    background-color 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.afterhrs-input::placeholder {
+  color: var(--primitive-ash-500);
+  opacity: 1;
+}
+
+.afterhrs-input:focus {
+  border-color: var(--input-border-focus);
+  background-color: rgba(40, 0, 3, 0.92);
+  box-shadow: 0 14px 32px -8px rgba(230, 0, 0, 0.28);
+  outline: none;
+}
+
+.field-error-msg {
+  display: none;
+  color: var(--primitive-ember-400);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.afterhrs-input:user-invalid,
+.afterhrs-input.user-invalid-fallback {
+  border-color: var(--primitive-ember-400);
+  background-color: rgba(74, 0, 6, 0.65);
+}
+
+.afterhrs-input:user-invalid ~ .field-error-msg,
+.afterhrs-input.user-invalid-fallback ~ .field-error-msg {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.afterhrs-input:user-valid,
+.afterhrs-input.user-valid-fallback {
+  border-color: var(--primitive-signal-valid);
+}
+
+/* ==========================================================================
+   05. ATMOSPHERIC FILM GRAIN, SAFELIGHT & REDUCED MOTION
+   ========================================================================== */
+
+.safelight-plate {
+  filter: contrast(1.06) saturate(1.08);
+  transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+
+.safelight-plate:hover {
+  filter: contrast(1.14) saturate(1.2);
+}
+
+.pulse-signal {
+  animation: crimson-pulse 2.4s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: 0.9;
+  }
+}
+
+@keyframes crimson-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+}
+
+.laser-scanline {
+  animation: scanline-sweep 8s linear infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    display: none;
+  }
+}
+
+@keyframes scanline-sweep {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100vh);
+  }
+}
+
